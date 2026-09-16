@@ -16,7 +16,11 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - run: python scripts/run_quality.py --allow-empty
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24.x'
+      - run: npm install --no-fund --no-audit
+      - run: python scripts/run_quality.py
       - name: Change hotspots
         shell: bash
         run: |

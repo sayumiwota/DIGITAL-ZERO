@@ -1,17 +1,28 @@
 # DIGITAL ZERØ | Autonomous Software Engineering Factory v3
 
-DIGITAL ZERØ の自律型ソフトウェア開発基盤。
+DIGITAL ZERØ の自律型ソフトウェア開発基盤と Engineering Control Center。
+
+## Runtime
+- Next.js 16.3.3 (Active LTS security patch line)
+- React 19.3
+- Node.js 24 LTS
+- TypeScript 6
 
 ## Core Flow
 Detect → Analyze → Parallelize → Implement → Test → Security → Benchmark → PR → Human Gate → Deploy → Observe
 
-## Included
-- Git worktree 3方式比較（minimal / maintainable / performance）
-- Nightly Bug Hunt
-- Quality Gate
-- Weekly Code Health
-- Evidence-based PR generation
-- AGENTS.md governance
+## App
+- `/` Engineering Control Center
+- `/api/health` machine-readable health endpoint
+
+## Quality
+`npm run verify` executes lint, typecheck, unit test, and production build. The factory adds npm security audit as a separate gate.
+
+## Automation
+- Quality Gate: every PR/push
+- Nightly Bug Hunt: 02:00 JST
+- Weekly Code Health: Monday 05:00 JST
+- Worktree Lab: minimal / maintainable / performance
 
 ## Safety Boundary
-自動化は原則としてPR作成まで。`main`への自動マージ、本番DB破壊的変更、IAM/権限、Secret、不可逆マイグレーション、高リスク本番変更は承認ゲートを必須とする。
+Automation is designed to stop at PR creation. Default-branch auto-merge, production DB destructive changes, IAM/permissions, secrets, irreversible migrations, and high-risk production changes remain approval-gated.
