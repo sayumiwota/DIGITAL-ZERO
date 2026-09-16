@@ -1,0 +1,14 @@
+{
+  "source_extensions": [".py", ".js", ".jsx", ".ts", ".tsx", ".go", ".rs", ".java", ".kt", ".swift", ".rb", ".php", ".cs", ".cpp", ".c", ".h"],
+  "exclude_dirs": [".git", ".worktrees", "node_modules", "vendor", "dist", "build", ".next", ".venv", "venv", "coverage"],
+  "quality_commands": {
+    "lint": [],
+    "typecheck": [],
+    "unit": [],
+    "integration": [],
+    "security": []
+  },
+  "benchmark": {"warmups": 1, "runs": 5, "timeout_seconds": 900},
+  "worktree_variants": ["minimal", "maintainable", "performance"],
+  "risk_gate": {"auto_merge": false, "production_deploy": false, "destructive_migration": false, "permission_change": false}
+}

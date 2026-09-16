@@ -1,0 +1,29 @@
+name: Engineering Factory - Weekly Code Health
+on:
+  schedule:
+    - cron: '0 20 * * 0' # Monday 05:00 JST
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  health:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python scripts/run_quality.py --allow-empty
+      - name: Change hotspots
+        shell: bash
+        run: |
+          mkdir -p reports
+          git log --name-only --pretty=format: --since='90 days ago' | sed '/^$/d' | sort | uniq -c | sort -nr | head -100 > reports/change-hotspots.txt || true
+      - uses: actions/upload-artifact@v4
+        with:
+          name: weekly-code-health
+          path: reports/
+          if-no-files-found: ignore
