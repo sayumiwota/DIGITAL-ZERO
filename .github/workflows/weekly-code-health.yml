@@ -19,7 +19,7 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '24.x'
-      - run: npm install --no-fund --no-audit
+      - run: npm ci --no-fund --no-audit
       - run: python scripts/run_quality.py
       - name: Change hotspots
         shell: bash

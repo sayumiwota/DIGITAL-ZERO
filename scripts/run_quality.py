@@ -8,4 +8,9 @@ for group,commands in load_config()['quality_commands'].items():
         results.append({'group':group,'command':cmd,'returncode':p.returncode,'duration_sec':round(time.time()-t,3),'output':p.stdout[-20000:]})
 (ROOT/'reports').mkdir(exist_ok=True); (ROOT/'reports/quality.json').write_text(json.dumps(results,indent=2,ensure_ascii=False),encoding='utf-8')
 if not results and not args.allow_empty: raise SystemExit('No quality commands configured.')
-if any(r['returncode']!=0 for r in results): raise SystemExit(1)
+failures = [result for result in results if result['returncode'] != 0]
+for failure in failures:
+    print(f"Quality check failed [{failure['group']}] {failure['command']} (exit {failure['returncode']})")
+if failures:
+    print("See reports/quality.json for command output.")
+    raise SystemExit(1)
